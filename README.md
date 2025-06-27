@@ -78,7 +78,7 @@ Four regressors were trained using 5-fold cross-validation. Mean Squared Error (
 | Support Vector Regressor | 0.0044   | 0.0044      |
 | Random Forest Regressor  | 0.0043   | **0.0036**  |
 
-<p align="center"> <img src="model_performance.png" width="600"> </p>
+<img src="model_performance.png" width="600">
 
 ---
 
