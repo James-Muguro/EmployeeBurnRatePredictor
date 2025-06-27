@@ -1,63 +1,115 @@
-# Employee_BurnRate_Prediction_Model
-Predicting employee burnout using data-driven models is essential for proactive intervention, allowing organizations to implement targeted support strategies, foster a healthier work culture, and sustain long-term productivity.This project aims to build and compare the performance of several regression machine learning model to predict employee burnout rate from data such as gender, hours worked per day, designation, and the like.
+# Employee Burnout Rate Prediction
 
-Table of Contents
-## Table of Contents
-1. [Problem Statement](#problem-statement)
-2. [Data](#data)
-3. [Exploratory Data Analysis](#exploratory-data-analysis)
-5. [Model Performance](#model-performance)
-6. [Model Evaluation](#model-evaluation)
-7. [Contributing](#contributing)
-8. [Contact Information](#contact-information)
+This repository advances the original project by implementing modern machine learning workflows and enhancing reproducibility, scalability, and code clarity. The goal remains: predict employee burnout rates using a robust, data-driven modeling pipeline that supports HR decision-making with precision.
+
+---
+
+## 📙 Table of Contents
+
+1. [Problem Statement](#1-problem-statement)
+2. [Data](#2-data)
+3. [Exploratory Data Analysis](#3-exploratory-data-analysis)
+4. [Model Performance & Evaluation](#4-model-performance--evaluation)
+5. [Improvements Made](#5-improvements-made)
+6. [Contributing](#6-contributing)
+
+---
 
 ## 1. Problem Statement
-Today, burnout is often described as 'The Great Exhaustion' because according to a study published by Mercer in 2024, 8 out of 10 employees are at risk of burnout. It thus comes as no surprise that HR departments are very interested in monitoring their employees' burnout rate. Without early detection, burnout often results in increased absenteeism, higher turnover rates, and a steep rise in recruitment and training costs, ultimately undermining the organization's competitive edge Understanding and predicting employee burnout rates with machine learning can provide organizations with the right insights to create supportive and healthy environments in the workplace as well as sustain long-tern prodductivity.
 
-## 2.Data
-The dataset used for this project consists of HR Analytics data including, when an employee joined the company, there level in the company, gender, whether work from home options are available, their mental fatigue score, among other features and the target variable, the burn out rate.
+According to Mercer (2024), 80% of employees are at risk of burnout. Undetected burnout leads to elevated turnover, absenteeism, and HR costs. Early detection using machine learning enables targeted intervention and promotes sustainable performance across organizations.
 
-## 3.Exploratory Data Analysis
-#### 3.1 Handling missingness
-All rows with missing values in the target variable were droped. Missingness in the 'Resource Allocation' and 'Mental Fatigue Score' were imputed using median and mean respectively based on their distributions.
+---
 
+## 2. Data
 
-| Missingness in the data  | Data distributions of missing features |
-|:--------------:|:--------------:|
+The dataset contains the following features:
+
+* Join date
+* Company type
+* Designation
+* Hours worked per day
+* Mental fatigue score
+* Availability of remote work
+* Target variable: burnout rate
+
+---
+
+## 3. Exploratory Data Analysis
+
+### 3.1 Missing Data Handling
+
+* Target-null rows were removed.
+* Resource Allocation: median imputation
+* Mental Fatigue Score: mean imputation
+
+|               Missingness Overview              |              Distribution Overview             |
+| :---------------------------------------------: | :--------------------------------------------: |
 | <img src="missing_data_matrix.png" width="400"> | <img src="data_distributions.png" width="400"> |
 
+### 3.2 Univariate & Categorical Insights
 
-#### 3.2 Univariate Analysis
-This section will briefly highlight some of the insights learned from univariate analysis
-The majority of employees hold mid-senior level positions, indicating a workforce with substantial experience and expertise. Their daily working hours typically range between 4 to 5 hours, suggesting a flexible or results-driven work environment. The short working hours could also suggest that the work is mostly project-based and propably their is an emphasis on quality and not quantity.
+* Most employees are mid-level professionals.
+* Daily hours cluster around 4–5, indicating output-focused workflows.
+* Majority work remotely.
+* Balanced gender distribution.
+* Service department dominates.
 
-![Alt text](distributions.png)
+<img src="distributions.png" width="600">
+<img src="count_plots.png" width="600">
 
-The inference that the work environment is flexible is further supported by the fact that majority of employees have work from home setup available for them. There is relatively an equal gender balance, with female employees being slightly more than male employees and majority of the workforce work in the service department.
-![Alt text](count_plots.png)
+### 3.3 Bivariate Insights
 
-#### 3.3 Bivariate Analysis
-From a correlation analysis we learn that:
--The high your seniority, the more burn out.
--The more hours you work, the higher your burn rate.
--An increase in mental fatigue results in an increase in burn out rate.
+* Burnout increases with designation and daily working hours.
+* Mental fatigue is strongly correlated with burnout.
 
 <img src="correlation_heatmap.png" width="400">
 
+---
 
 ## 4. Model Performance & Evaluation
-Four regression models were trained using 5-fold cross validation to ensure robust performance and evaluated based on mean squared error. The two best performing models, were optimized using Grid-search CV, and the random forest regressor was the best performing model with an mse score of 0.0036.
 
-<img src="model_performance.png" width="400">
+Four regressors were trained using 5-fold cross-validation. Mean Squared Error (MSE) served as the evaluation metric. GridSearchCV was used to fine-tune the top models.
 
-## 5. Contributing
-1. Fork & clone the repo locally
-2. Create a new branch
-3. Make changes on your branch
-4. Open a pull request and submit your work for review
-   
-## 6. Contact Information
-Please reach me via email at: mwangi25.mercy@gmail.com
+| Model                    | MSE (CV) | MSE (Tuned) |
+| ------------------------ | -------- | ----------- |
+| Linear Regression        | 0.0050   | -           |
+| Lasso Regression         | 0.0393   | -           |
+| Support Vector Regressor | 0.0044   | 0.0044      |
+| Random Forest Regressor  | 0.0043   | **0.0036**  |
 
+<p align="center"> <img src="model_performance.png" width="600"> </p>
 
+---
 
+## 5. Improvements Made
+
+* Introduced consistent cross-validation for fair model comparison
+* Cleaned up code and added comments/emojis for readability and structure.
+* Used `make_scorer` with MSE to unify evaluation across models
+* Final predictions evaluated on holdout test set
+* Adopted structured code sections with semantic headings and emojis for better UX
+* Added logic to make sample predictions using the trained model and compare them against ground truth.
+* Serialized the best-performing model (Random Forest) using joblib for future inference.
+
+---
+
+## 6. Contributing
+
+Contributions are welcome!
+
+1. Fork this repo
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
+
+Please follow PEP8 and include docstrings/comments where relevant.
+
+---
+
+## 7. License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
